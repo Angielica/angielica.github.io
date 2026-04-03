@@ -12,6 +12,16 @@
 
 
     <style>
+        :root {
+      --red:   #cb3234;
+      --ink:   #1a1a1a;
+      --muted: #6b6b6b;
+      --rule:  #e0dcd8;
+      --bg:    #faf9f7;
+      --card:  #ffffff;
+      --tag:   #f3eeea;
+    }
+
     body {
       margin: 0;
       font-family: Verdana, Helvetica, sans-serif;
@@ -40,6 +50,283 @@
       background-color: #cb3234;
       color: white;
     }
+    /* ── PAGE HEADER ── */
+    .page-header {
+      max-width: 860px;
+      margin: 52px auto 0;
+      padding: 0 24px 26px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .page-header h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+    .page-header .subtitle {
+      font-style: Verdana, Helvetica, sans-serif;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ── YEAR ACCORDION ── */
+    .accordion-wrap {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding: 0 24px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    details.year-accordion {
+      border: 1px solid var(--rule);
+      border-radius: 7px;
+      background: var(--card);
+      overflow: hidden;
+      transition: box-shadow .25s;
+    }
+    details.year-accordion[open] {
+      box-shadow: 0 4px 28px rgba(0,0,0,.08);
+      border-color: #ccc;
+    }
+
+    /* ── YEAR SUMMARY (the clickable card) ── */
+    summary.year-summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+    summary.year-summary::-webkit-details-marker { display: none; }
+
+    .year-left {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .year-number {
+      font-family: Verdana, Helvetica, sans-serif;
+      font-size: 1.7rem;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: -.02em;
+      min-width: 56px;
+    }
+    .year-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .year-count {
+      font-family: Verdana, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .year-topics {
+      font-style: Verdana, Helvetica, sans-serif;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    /* chevron arrow */
+    .year-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, transform .3s;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    details[open] .year-arrow {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+      transform: rotate(180deg);
+    }
+    summary:hover .year-arrow { background: var(--tag); }
+    details[open] summary:hover .year-arrow { background: #a02426; }
+    details[open] summary.year-summary { border-bottom: 1px solid var(--rule); }
+
+    /* ── PAPERS LIST INSIDE ACCORDION ── */
+    .papers-list {
+      padding: 20px 20px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ── PAPER CARD ── */
+    .paper-card {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      overflow: hidden;
+        width: 100%;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .paper-card:hover {
+      box-shadow: 0 3px 16px rgba(0,0,0,.07);
+      border-color: #ccc;
+    }
+
+    .paper-thumb {
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border-right: 1px solid var(--rule);
+    }
+    .paper-thumb img {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+    .paper-thumb .no-img {
+      width: 90px;
+      height: 70px;
+      background: linear-gradient(135deg, #e8e2dc, #d5cfc8);
+      border-radius: 3px;
+    }
+
+    .paper-body { padding: 18px 22px; }
+
+    .paper-title {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 7px;
+    }
+    .paper-title a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .paper-title a:hover { color: var(--red); border-bottom-color: var(--red); }
+
+    .paper-authors {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+      line-height: 1.5;
+    }
+    .paper-authors strong { color: var(--ink); font-weight: 600; }
+
+    .paper-venue {
+      font-style: italic;
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 11px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-style: normal;
+      font-family: Verdana, Helvetica, sans-serif;
+      font-size: 9.5px;
+      letter-spacing: .06em;
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .badge-journal  { background: #e8f0e8; color: #3a6b3a; }
+    .badge-conf     { background: #e8eaf5; color: #3a4580; }
+    .badge-award    { background: #fef3cd; color: #7a5a00; }
+    .badge-preprint { background: var(--tag); color: var(--muted); }
+
+    .paper-abstract {
+      font-size: .85rem;
+      color: #444;
+      line-height: 1.65;
+      max-height: 4.5em;
+      overflow: hidden;
+      text-align: justify;
+      position: relative;
+      margin-bottom: 8px;
+      transition: max-height 0.3s ease;
+    }
+
+    .paper-abstract.expanded {
+      max-height: 1000px;
+    }
+
+    .paper-abstract::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1.5em;
+      background: linear-gradient(transparent, var(--bg));
+      transition: opacity 0.3s;
+    }
+
+    .paper-abstract.expanded::after {
+      opacity: 0;
+    }
+
+    .read-more-btn {
+      font-size: 0.8rem;
+      color: var(--red);
+      cursor: pointer;
+      user-select: none;
+      text-align: right;
+      display: block;
+    }
+
+    .paper-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .link-btn {
+      font-family: Verdana, Helvetica, sans-serif;
+      font-size: 10.5px;
+      letter-spacing: .05em;
+      padding: 4px 13px;
+      border-radius: 3px;
+      text-decoration: none;
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      background: var(--card);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .link-btn:hover         { background: var(--red); border-color: var(--red); color: #fff; }
+    .link-btn.primary       { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .link-btn.primary:hover { background: var(--red); border-color: var(--red); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      font-size: .8rem;
+      color: var(--muted);
+      padding: 32px 24px;
+      border-top: 1px solid var(--rule);
+    }
+    .site-footer a { color: var(--red); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .paper-card { grid-template-columns: 1fr; }
+      .paper-thumb { border-right: none; border-bottom: 1px solid var(--rule); padding: 12px; }
+      .paper-thumb img { max-width: 72px; }
+    }
     </style>
 
     <div class="topnav">
@@ -54,53 +341,41 @@
 
 <body>
 
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Publications</name>
-              </p>
-        </tbody></table>
+<div style="width: 100%; padding: 0; margin: 0;">
+  <h1 style="text-align:center;">Publications</h1>
+</div>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2026</heading>
+<div class="accordion-wrap">
 
-            </td>
-          </tr>
-        </tbody></table>
+    <!-- ══════════ 2026 ══════════ -->
+  <details class="year-accordion" open>
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2026</span>
+        <div class="year-meta">
+          <span class="year-count">4 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/fudge.jpg" alt="FuDGE"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="">FuDGE: Modeling Full Dynamic Graph Evolution</a></div>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/fudge.jpg" alt="hpp" style="border-style: none" width="200">
-
-        </td>
-
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "">
-            <papertitle>FuDGE: Modeling Full Dynamic Graph Evolution</papertitle>
-            </a>
-
-          <br>
-
-
-          <strong>Angelica Liguori </strong>,
+            <div class="paper-authors"><strong>Angelica Liguori</strong>,
           Simone Mungari,
           Ettore Ritacco,
           Edoardo Serra,
           Giuseppe Manco
+          </div>
 
-          <br>
-          <em> Accepted for publication in the Journal of Intelligent Information Systems  </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> Research in neural generative models for dynamic networks is constantly evolving,
+            <div class="paper-venue"><span>Accepted for publication in the Journal of Intelligent Information Systems</span>
+                <span class="badge badge-journal">Journal</span>
+            </div>
+          <div class="paper-abstract">Research in neural generative models for dynamic networks is constantly evolving,
             and sophisticated solutions have been exploited to characterize the long-term evolution of temporal graphs.
             Despite the efforts in the literature, state-of-the-art models face the problem of handling changes
             in the graph structure by relying on prior knowledge, compromising the model’s flexibility.
@@ -111,37 +386,30 @@
             We evaluate FuDGE on real and synthetic benchmark datasets and compare its performance against state-of-the-art
             competitors. The results demonstrate that our approach offers a competitive advantage in generation and
             prediction quality compared to existing literature.
-          </p>
+          </div>
+            <div class="read-more-btn">Read more</div>
 
+        </div>
+      </article>
 
-        </td>
-      </tr>
-
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/procap.png" alt="hpp" style="border-style: none" width="200">
-
-        </td>
-
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "">
-            <papertitle>Automated Membership Inference via Prompt-Based Attacks in Generative Models</papertitle>
-            </a>
-
-          <br>
-
-          Daniela Gallo,
-          <strong>Angelica Liguori </strong>,
-          Ettore Ritacco,
-          Luca Caviglione,
-          Fabrizio Durante,
-          Giuseppe Manco
-
-          <br>
-          <em> Accepted for publication in the Machine Learning Journal  </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> The growing adoption of prompt-based generative models has raised concerns
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/procap.png" alt="ProCAP"></div>
+        <div class="paper-body">
+          <div class="paper-title">
+              <a href="">Automated Membership Inference via Prompt-Based Attacks in Generative Models</a></div>
+          <div class="paper-authors">
+              Daniela Gallo,
+              <strong>Angelica Liguori</strong>,
+              Ettore Ritacco,
+              Luca Caviglione,
+              Fabrizio Durante,
+              Giuseppe Manco
+              </div>
+          <div class="paper-venue"><span>
+              Accepted for publication in the Machine Learning Journal
+          </span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+              The growing adoption of prompt-based generative models has raised concerns
             over the unauthorized use of proprietary data, as such models may memorize and replicate training content.
             To address this issue, we introduce ProCAP, a novel Membership Inference Attack approach based on a
             prompt-driven auditing framework. Given a proprietary dataset and a target generative model,
@@ -154,37 +422,28 @@
             the learning phase on the most informative data regions. We validate ProCAP across different scenarios,
             by using both real and synthetic data. Results demonstrate its effectiveness in recognizing unauthorized
             data usages with strong accuracy-efficiency trade-offs.
-          </p>
+          </div>
+            <div class="read-more-btn">Read more</div>
 
+        </div>
+      </article>
 
-        </td>
-      </tr>
-
-
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/jisas2026.jpg" alt="hpp" style="border-style: none" width="200">
-
-        </td>
-
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://www.sciencedirect.com/science/article/pii/S2214212625003928">
-            <papertitle>Seeing the Invisible: Detection of Stealth DoS Attacks Using Variational U-Net-like Models</papertitle>
-            </a>
-
-          <br>
-
-          Enrico Cambiaso,
-          Francesco Folino,
-          Massimo Guarascio,
-          <strong>Angelica Liguori </strong>,
-          Antonino Rullo
-
-          <br>
-          <em> Journal of Information Security and Applications </em>
-          <br>
-          <br>
-          <p style="text-align: justify;">The increasing sophistication of cyberattacks targeting companies
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/jisas2026.jpg" alt="Slow DoS"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://www.sciencedirect.com/science/article/pii/S2214212625003928">
+              Seeing the Invisible: Detection of Stealth DoS Attacks Using Variational U-Net-like Models</a></div>
+          <div class="paper-authors">
+              Enrico Cambiaso,
+              Francesco Folino,
+              Massimo Guarascio,
+              <strong>Angelica Liguori</strong>,
+              Antonino Rullo
+          </div>
+          <div class="paper-venue"><span>Journal of Information Security and Applications
+          </span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+          The increasing sophistication of cyberattacks targeting companies
             and organizations continues to challenge the effectiveness of modern defense systems.
             Among these threats, slow Denial-of-Service (slow DoS) attacks are particularly difficult to detect,
             as they rely on evasion strategies that add significant complexity to cybersecurity efforts.
@@ -200,36 +459,26 @@
             demonstrate the framework's ability to accurately and efficiently detect slow DoS attacks,
             highlighting its robustness, generalizability, and practical suitability for deployment
             in operational environments.
-          </p>
-          [<a href="https://pdf.sciencedirectassets.com/287016/1-s2.0-S2214212625X00090/1-s2.0-S2214212625003928/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjELj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCJNWkFEL1G%2FFm199znN%2FAYoLhPgvHU3ny1nHtR8SMBdgIhAIM%2BWtyXY1YrTQ3M%2BtgoiW1dQeFrl%2FxLFB40VAigicWCKrwFCIH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQBRoMMDU5MDAzNTQ2ODY1IgyZqp%2FBATFs9PzL21kqkAVfpR%2FnHu0cmpGo4T6hENBQUUiM7ZFcxYD77P6AI50xBiYiT376E6fTPby625dWD1Kq5TwEtA7oddiaeJENWoSFLnZ%2BttNvA2Z4lFTER9c4xF%2BRcvJzJJVNHxcxY5zUXdlfOc2eaiarTFZDChAy%2Fwc%2FrmHSvTMyFyJ0tg5YJDvvOWM2rJucBtnQvLZ6tb3ow9VoFs41My6z8CqyJijeWwEDoknB6powblCo1r6y%2BE3ETEVRte3etn0L817Ml0O80u3wJLzCoOtxWR3K5T2zVR1chXDyL%2BVejGL5dfteoE0YnIliFD6zB6APFQK9i1sALw1wPlpERFxrwo5hhUxfw5nXd%2BWxViTUgRMgOCH%2FaNZzvIGOuolqvVIzUWuwwdrNQkvZLyxIqE5016gi61TrkRowPc7r4nsi4lWzSVmQkNyLAq6iKyyD9bNfWsGkLuPGTEgNYRSgU6ywVD93vXUe8C15oHTxmw78IoAQZ40DGMQjsok240%2BPougPghGnCPok7vWvGh74FKzMFY7mt4uLBaijG%2BU%2BM2TL%2BLEnqm6iUV6l9M3jutEZ1v11Ai9A5n6HbnLI%2FaOJCv9c7a793x9Wj1TkoJhXrAJtdV4GEju8gRN2Lb2OiEW%2FftcrvPH0T2gKn77PtzHwp7sThFeo3lLTvYvbJ9ObWF96owMGRqARI9I8Oc%2BPwiZgA9PJJ319Ead6GKZUUN7WEw5uMCMJx%2F8QhGDu2%2BmfBbT4r8TBsJAmmkLXPCn12RO3IBcEs0JaTK0v3LZUXiHrG5oCPAc4yEtZalOlCQOw%2Batq7BKYq2FB0IZZk5H4t0ZAd%2BERi7cTA48fImCVRpShANUNq3M60RFNsE6xpgKBlZUmhiKO9ArRCjWlazCT373OBjqwAe%2FxTVlPrLglBTQMXQyLLOtXPfKGrAXkNakDRTVO04sPrOPUKJzMx01lthv3Y7%2FL1L0OT%2BBf5p6K60TTjaHQv567TmjOV9O2Jsi5%2FW07ZPe%2FynhW37ugmukgvA%2BXwHQRNIc3d5si89WOM4kWR4t%2BGUvlqnGsoHR3b0UuCW%2BsLSzTRbgVNgu2%2BwMgG1fqzrgPG%2FRakoi%2Blcoh%2BlrvBGX7DzT3XGR9BbbpXUqlTDwKKtWX&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260403T085525Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTYYPXKK5HI%2F20260403%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=1604638a2f669ee57240788193a73ed0d0b2061457c54a590bda8c8d136bcd73&hash=09c270c639811aa1b86e86f2e254cdd47bef6ae674ea0ed8b6fc865657d8e5a2&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S2214212625003928&tid=spdf-80922dc6-4e26-43ec-81e0-762c6f8b7aff&sid=1158cde26f898945169aa34-88b5560c4501gxrqb&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=091b5d03505805070f&rr=9e66daad9fba5915&cc=it"> Paper </a>]
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://www.sciencedirect.com/science/article/pii/S2214212625003928" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        </td>
-      </tr>
-
-
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/ncaa2026.jpg" alt="hpp" style="border-style: none" width="200">
-
-        </td>
-
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://link.springer.com/article/10.1007/s00521-025-11830-1">
-            <papertitle>DALEK: combining deep active learning and explanations methods for fake news detection on COVID-19</papertitle>
-            </a>
-
-          <br>
-
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/ncaa2026.jpg" alt="DALEK"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://link.springer.com/article/10.1007/s00521-025-11830-1">
+              DALEK: combining deep active learning and explanations methods for fake news detection on COVID-19</a></div>
+          <div class="paper-authors">
           Carmela Comito,
           Massimo Guarascio
-          <strong>Angelica Liguori </strong>,
+          <strong>Angelica Liguori</strong>,
           Francesco Sergio Pisani
-
-          <br>
-          <em> Neural Computing and Applications </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> Misinformation poses a significant challenge in social media,
+          </div>
+          <div class="paper-venue"><span>Neural Computing and Applications</span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+              Misinformation poses a significant challenge in social media,
             particularly concerning health-related topics such as the COVID-19 pandemic.
             The spread of unverified information can sway public opinions and influence behaviors,
             leading to potentially harmful consequences. For instance, misinformation campaigns advocating against vaccinations,
@@ -246,47 +495,155 @@
             Active Learning. Specifically, Explanatory Active Learning is leveraged for the latter objective.
             Experimental evaluations conducted on real datasets from the health domain focusing on COVID-19 misinformation,
             demonstrate the effectiveness of the proposed solution in detecting and mitigating the spread of fake news.
-          </p>
-          [<a href="https://link.springer.com/content/pdf/10.1007/s00521-025-11830-1.pdf"> Paper </a>]
+          </div>
+            <div class="read-more-btn">Read more</div>
+            <div></div>
+          <div class="paper-links"><a href="https://link.springer.com/content/pdf/10.1007/s00521-025-11830-1.pdf" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        </td>
-      </tr>
+    </div>
+  </details>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2025</heading>
 
-            </td>
-          </tr>
-        </tbody></table>
+    <!-- ══════════ 2025 ══════════ -->
+  <details class="year-accordion">
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2025</span>
+        <div class="year-meta">
+          <span class="year-count">8 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/MERMAID.jpg" alt="MERMAID"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://link.springer.com/article/10.1007/s10994-025-06827-9">
+              Breaking domain barriers: mixture of experts for cross-domain fake news detection</a></div>
+          <div class="paper-authors">
+              <strong>Angelica Liguori</strong>,
+                Francesco Sergio Pisani,
+                Carmela Comito,
+                Massimo Guarascio,
+                Giuseppe Manco
+          </div>
+          <div class="paper-venue"><span>Machine Learning Journal (Springer)
+          </span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+              Social media have become a key tool for rapidly spreading information
+                worldwide, amplifying the risks of misinformation and fake news.
+                This is also intensified by the fact that fake news covers a wide range of topics across multiple domains.
+                Machine learning, particularly language models, offers a promising solution for detecting fake news.
+                However, a major limitation of existing methods is their inability to classify instances from new or
+                unseen domains. To tackle this issue, we introduce MERMAID, a mixture of experts approach that leverages
+                the knowledge from different specialized models to classify examples from unknown domains.
+                Each expert is initially trained on a specific known domain and then fine-tuned using data
+                from other known domains. A model merging procedure is then applied to combine related experts,
+                reducing the number of models required for predicting instances from unknown domains.
+                In addition, our approach can effectively be used in few-shot learning scenarios,
+                where a small amount of data from the target/unknown domain is available during training.
+                Experiments on five benchmark datasets demonstrate the effectiveness of our method in
+                both zero-shot and few-shot learning settings.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://link.springer.com/content/pdf/10.1007/s10994-025-06827-9.pdf" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/sanitization_jiis.jpg" alt="hpp" style="border-style: none" width="200">
 
-        </td>
+        <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/survey_tpp.jpg" alt="Survey TPP"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://www.sciencedirect.com/science/article/pii/S0925231225018636?via%3Dihub">
+              Modeling events and interactions through temporal processes: A survey</a></div>
+          <div class="paper-authors">
+          <strong>Angelica Liguori</strong>,
+            Luciano Caroprese,
+            Marco Minici,
+            Bruno Veloso,
+            Francesco Spinnato,
+            Mirco Nanni,
+            Giuseppe Manco,
+            João Gama
+          </div>
+          <div class="paper-venue"><span>Neurocomputing</span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+          In real-world scenarios, numerous phenomena generate a series of events
+                that occur in continuous time. Point processes provide a natural mathematical framework for
+                modeling these event sequences. In this comprehensive survey, we aim to explore probabilistic models
+                that capture the dynamics of event sequences through temporal processes.
+                We revise the notion of event modeling and provide the mathematical foundations
+                that underpin the existing literature on this topic. To structure our survey effectively,
+                we introduce an ontology that categorizes the existing approaches considering three
+                horizontal axes: modeling, inference and estimation, and application.
+                We conduct a systematic review of the existing approaches, with a particular focus on
+                those leveraging deep learning techniques. Finally, we delve into the practical applications
+                where these proposed techniques can be harnessed to address real-world problems related
+                to event modeling. Additionally, we provide a selection of benchmark datasets that can be
+                employed to validate the approaches for point processes.
+          </div>
+          <div class="paper-links"><a href="https://pdf.sciencedirectassets.com/271597/1-s2.0-S0925231225X00345/1-s2.0-S0925231225018636/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjELr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQDZFBkm0NBj2EwfobUROaajiB77HHodRIFaGr1rlUlS6AIgVISxWJYLz1hGZ4qJ9ioE9ScpDTMp0UIdiPpj852m908qvAUIg%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgwwNTkwMDM1NDY4NjUiDIgrRwtO%2BREb2%2B2suCqQBQZBVw7l3HicGTh60WE2ICk964dJOxiYp7Pf34GDgl2WkTimaAbDBAFbsq6pVvqeyeY6T6pYAtklTLIaStg20ERIZ1e9dGbwJ%2BDpUbA4v2yHqsODA%2BZIZjIcLvB9Cymc69mu%2FMdHIBhP1ur5unD3INKdWN3ncTv8hsFJHYF3EJQzkjd1YJ14mfZ947g8sfK%2BotUjBqt1nUr3rB%2F6t58Zsbe4LpuxQUEin3xdiahliel39XwVVKKhZEs07zUcBELcPovxFOTxpzvJmeqE%2Faf3VH4omsCqhYGGsj3SKOVPyBpGYQjQhqCnl5eAj2eZPoLBFbp4goHcpb2bqzUZcqFUVZ3%2Bghc7E1asDlF1%2Fh3XRlQmGviw4NJA8suu6uQY%2BPmu7MaGgwNt4A8WwMVAvwZsAnkBK9b9PWwPye3sCQdgVRMUjLiFyMg0H2G5GNjEciqKAZQalGDjAyVmcfKmlqAlDRC1ptycNeUjylLGpGArXPEpVTFGa6Gty1pOGhskOfheyx%2BPl4ryGK3DtbWAPk2UOju3G3FiNsKGK%2FzXmCNrqfotWAt5u9advxjhxN1BO2%2F8sUbRS61UYqdNK%2FNrPMTvuxQlmbJKtDNk9p%2BbsAVvNdGBqW6X%2FaHCEoK4zKiCzOggLOYlIMWvWqVpghcwsB2L1uHmHN3IwSBYWHvaJeVAd8ndWFdFAgUZ%2FMImv%2Fzu6hbHgso1NWcVFuqIuPTqggklmHpQf3fdM5V937bNRUyG69tQWH00w6KohR8olJx78RJ8ER6DlIo737QvJuvdjc9zDEGXRcH1ZA7euXPKVABb8QdwY%2FjFpsM5AUWXLXe5OgOoG%2FqUBXOTa%2B%2FXfl4Ec2G%2FjEz4EKfayORBP6XVBGf964bkMOGNvs4GOrEB%2BuDN5kV%2BV2pwj9GvQ7eXYaZg9ajEIlp6o%2FoCuJ7T7KPnFK2FVVtFN3JPlMgrfqMDztbIAjcT1djAqgyAkKebQf49ygA3rBeG0Q31JduhiSKVbj0v%2BM1s2zKUGmMoPWiDJEKxUoAYWy2wrCOfKoXbttxdtuXWCpq6tBtWSeGV5LOQ6yBpiJTjOivIHmQvJdDdfGQcO6QH0J1asERHSfltVlOXlTczBrzT5YHD1ULgBdh2&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260403T103641Z&X-Amz-SignedHeaders=host&X-Amz-Expires=299&X-Amz-Credential=ASIAQ3PHCVTYYJAX2TIT%2F20260403%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5350df22436471479ca85bda7c06c988466bf1600cccaf149f47bec4d4104da1&hash=24ccfc906eced0af706f571f5b712101515cba066f6f812404c091578f64acd5&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0925231225018636&tid=spdf-28bd3d78-9aaf-46c9-9f82-d2b6803295d1&sid=1158cde26f898945169aa34-88b5560c4501gxrqb&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=091b5d03505957005e&rr=9e676f064b160f82&cc=it" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://link.springer.com/article/10.1007/s10844-025-00936-6">
-            <papertitle>A deep learning-based approach for stegomalware sanitization in digital images</papertitle>
-            </a>
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/DAFNE_GA.jpg" alt="DAFNE"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://ieeexplore.ieee.org/document/11159185">
+              Discovering Domain-Agnostic Fake News Detectors Through Deep Self-Supervised Learning
+          </a></div>
+          <div class="paper-authors">
+              Carmela Comito,
+            Massimo Guarascio,
+            <strong>Angelica Liguori</strong>,
+            Giuseppe Manco,
+            Francesco Sergio Pisani
+          </div>
+          <div class="paper-venue"><span>IEEE Access</span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+              The rapid spread of misinformation across online platforms poses a
+                major threat to societal trust, public health, and democratic processes.
+                While recent advances in machine learning have improved the accuracy of fake news detection,
+                most existing approaches remain limited to single-domain settings and struggle to generalize
+                across diverse domains or platforms. To address this challenge, we propose
+                DAFNE (Domain-Agnostic Fake NEws detector), a deep learning approach designed to capture
+                cross-domain high-level features for fake news detection.
+                By combining feature-level adversarial learning with self-supervised learning,
+                DAFNE effectively learns domain-invariant representations that enable reliable
+                detection across heterogeneous sources. The proposed approach is evaluated on five
+                real-world benchmark datasets spanning multiple domains, and the results demonstrate
+                superior generalization capabilities compared to state-of-the-art baselines.
+                Specifically, DAFNE outperforms the competitors, with average micro-F1 improvements
+                ranging from 11.3% to 39.9%. In comparison to the second-best model, our approach
+                shows an average improvement of 18% across all domains in terms of the F-Score,
+                reaching up to 25% on the Politifact dataset. These results highlight the capability
+                of DAFNE to mitigate the domain shift problem, enabling more reliable and adaptive
+                misinformation detection in dynamic online environments.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11159185" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-          <br>
-
-          <strong>Angelica Liguori </strong>,
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/sanitization_jiis.jpg" alt="Stegomalware Sanitization"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://link.springer.com/article/10.1007/s10844-025-00936-6">
+              A deep learning-based approach for stegomalware sanitization in digital images</a></div>
+          <div class="paper-authors">
+              <strong>Angelica Liguori</strong>,
           Marco Zuppelli,
           Daniela Gallo,
           Massimo Guarascio,
           Luca Caviglione
-
-          <br>
-          <em> Journal of Intelligent Information Systems </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> Malware is increasingly endowed with steganographic mechanisms
+          </div>
+          <div class="paper-venue"><span>Journal of Intelligent Information Systems</span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+              Malware is increasingly endowed with steganographic mechanisms
             for concealing malicious data to avoid detection or bypass security measures.
             As a result, an emerging wave of threats named stegomalware has started to rise.
             Among the various approaches, real-world stegomalware primarily hides information within digital images,
@@ -301,55 +658,458 @@
             the effectiveness of our approach. Moreover, the U-Net-based sanitization solution prevents
             the recovery of the payload while preserving the original image quality and reducing risks arising
             from side-channel attacks.
-          </p>
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://link.springer.com/content/pdf/10.1007/s10844-025-00936-6.pdf" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        </td>
-      </tr>
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/llm4sec2025.jpg" alt="LLM4Sec"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://ieeexplore.ieee.org/document/11416119">
+              Days of Future Past: Towards Robust Detection of Malware Variants via LLM-Based Embedding Generation</a></div>
+          <div class="paper-authors">
+          Giacomo Benedetti,
+            Luca Caviglione,
+            Michał Choraś,
+            Massimo Guarascio,
+            <strong>Angelica Liguori</strong>,
+            Giuseppe Manco,
+            Antonino Rullo
+          </div>
+          <div class="paper-venue"><span>
+              2025 IEEE International Conference on Data Mining Workshops (ICDMW) - Workshop on the use of Large Language Models for Cybersecurity
+          </span><span class="badge badge-conf">Workshop</span></div>
+          <div class="paper-abstract">
+          The evolution of a parent malware into a family of slightly
+                different mutations may hinder detection mechanisms based on signatures,
+                while the limited number of training examples may reduce the effectiveness of
+                machine learning methods in the early stages of the infection. To address these challenges,
+                we define a framework to improve the ability to generalize the detection of "evolving"
+                malware samples. Specifically, we leverage a Large Language Model (LLM) to map malware
+                instructions into a latent space. The obtained embeddings are then used to train a
+                Variational Autoencoder for generating realistic variants. Experimental results
+                obtained by training a detector on both real and synthetic embeddings demonstrate
+                the effectiveness of our approach, especially when facing three real malware families.
+                Our LLM-based feature extraction approach should be then considered a promising mechanism
+                for pursuing robust malware detection in dynamic threat environments.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://ieeexplore.ieee.org/document/11416119" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2024</heading>
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/stegoIHMMSEC.jpg" alt="Android Stegomalware"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://dl.acm.org/doi/10.1145/3733102.3733122">
+              Analysis and Detection of Android Stegomalware: the Impact of the Loading Stage</a></div>
+          <div class="paper-authors">
+          Diego Soi,
+            Silvia Lucia Sanna,
+            Giacomo Benedetti,
+            <strong>Angelica Liguori</strong>,
+            Leonardo Regano,
+            Luca Caviglione,
+            Giorgio Giacinto
+          </div>
+          <div class="paper-venue"><span>
+              IH&MMSEC '25: Proceedings of the 2025 ACM Workshop on Information Hiding and Multimedia Security
+          </span><span class="badge badge-conf">Workshop</span></div>
+          <div class="paper-abstract">
+          Due to the increasing use of advanced offensive techniques,
+                the mitigation of Android malware is an urgent need. An emerging attack trend exploits
+                steganography to conceal malicious payloads within applications to make attacks stealthier.
+                Even if works on “stegomalware” are starting to emerge, they primarily focus on the multimedia
+                part of the attack chain, i.e., on how to detect hidden data in images or videos.
+                Therefore, this work aims at understanding whether the loading stage required for
+                the extraction of cloaked information can generate detection signatures.
+                To this aim, we develop a proof-of-concept implementation, which has been
+                repacked within a real Android application and tested against several malware
+                detection engines provided by VirusTotal. To anticipate possible offensive campaigns,
+                we also performed tests by considering threat actors able to obfuscate the bytecode
+                of the loader or the entire APK. Results indicate that standard tools are not ready
+                to face stegomalware targeting Android applications. Therefore, we provide indications
+                on how to improve forensics and attribution phases for Android malware endowed with
+                information hiding capabilities.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://dl.acm.org/doi/epdf/10.1145/3733102.3733122" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-            </td>
-          </tr>
-        </tbody></table>
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/malware_generation_cut.jpg" alt="LLMs Supply Chain"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://ceur-ws.org/Vol-4121/Ital-IA_2025_paper_87.pdf">
+              Large Language Models in the Software Supply Chain: Challenges and Opportunities</a></div>
+          <div class="paper-authors">
+          Giacomo Benedetti,
+            Luca Caviglione,
+            Carmela Comito,
+            Daniela Gallo,
+            Alberto Falcone,
+            Massimo Guarascio,
+            <strong>Angelica Liguori</strong>,
+            Giuseppe Manco,
+            Francesco Sergio Pisani,
+            Ettore Ritacco,
+            Antonino Rullo
+          </div>
+          <div class="paper-venue"><span>
+              Ital-IA 2025: 5th National Conference on Artificial Intelligence
+          </span><span class="badge badge-conf">Conference</span></div>
+          <div class="paper-abstract">
+          Large Language Models (LLMs) are increasingly integrated within the software development lifecycle,
+                for instance, to generate code and documentation or to support debugging.
+                As a result, LLMs are expected to become a relevant tool for improving the security posture of
+                modern software supply chains, especially for detecting weaknesses or vulnerabilities,
+                patching code in an automated manner, and explaining runtime behaviors.
+                While LLMs offer substantial productivity benefits, their widespread adoption introduces
+                new security risks. Adversaries can exploit LLM-generated code to introduce or
+                propagate vulnerabilities, potentially compromising the integrity of critical systems.
+                In this paper, we explore how software security can be enhanced by taking advantage of LLMs.
+                Specifically, we outline key research directions focused on source code attribution,
+                malware variant generation for robust detection, and the use of LLMs to support secure
+                coding practices. To showcase part of our ongoing research, we briefly assess the explainability
+                capabilities of LLMs and their potential to bridge the gap between code and
+                comprehension in modern development workflows.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://ceur-ws.org/Vol-4121/Ital-IA_2025_paper_87.pdf" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2023</heading>
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/StegoMalwareFlow1.jpg" alt="Android Stegomalware"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://ceur-ws.org/Vol-3962/paper9.pdf">
+              On the Feasibility of Android Stegomalware: A Detection Study</a></div>
+          <div class="paper-authors">
+          Diego Soi,
+          Silvia Lucia Sanna,
+            <strong>Angelica Liguori</strong>,
+          Marco Zuppelli,
+          Leonardo Regano,
+          Davide Maiorca,
+          Luca Caviglione,
+          Giuseppe Manco,
+          Giorgio Giacinto
+          </div>
+          <div class="paper-venue"><span>
+              Joint National Conference on Cybersecurity (ITASEC & SERICS 2025)
+          </span><span class="badge badge-conf">Conference</span></div>
+          <div class="paper-abstract">
+          Android malware represents an evolving threat within the modern cybersecurity
+              landscape due to the increasing importance of mobile systems in everyday life.
+              Obfuscation and source code manipulations are systematically employed to bypass security measures and improve
+              the effectiveness of attacks, especially to prevent detection or endanger the privacy of users.
+              However, they represent only a portion of the evasive techniques that can be employed to make malicious software stealthier.
+              In this work, we showcase a prime assessment of the joint use of steganography and repackaging techniques to hide
+              information within Android APK resources. Specifically, we assess the capabilities of real-world antivirus
+              aggregated by VirusTotal to identify payloads cloaked within audio and images of 20 popular Android applications.
+              Our investigation demonstrated that repackaging steganographically modified assets is not always possible.
+              Besides, our results revealed that common antivirus are not able to identify applications containing hidden data,
+              thus highlighting the need for new Indicators of Compromise.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://ceur-ws.org/Vol-3962/paper9.pdf" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-            </td>
-          </tr>
-        </tbody></table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    </div>
+  </details>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/jiis.jpg" alt="hpp" style="border-style: none" width="200">
+    <!-- ══════════ 2024 ══════════ -->
+  <details class="year-accordion">
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2024</span>
+        <div class="year-meta">
+          <span class="year-count">6 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
 
-        </td>
 
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://link.springer.com/article/10.1007/s10844-023-00819-8">
-            <papertitle>Learning autoencoder ensembles for detecting malware hidden communications in IoT ecosystems</papertitle>
-            </a>
+        <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/kais2024.jpg" alt="ARN"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://link.springer.com/article/10.1007/s10115-024-02172-w">
+                Robust anomaly detection via adversarial counterfactual generation
+          </a></div>
+          <div class="paper-authors">
+              <strong>Angelica Liguori</strong>,
+            Ettore Ritacco,
+            Francesco Sergio Pisani,
+            Giuseppe Manco
+          </div>
+          <div class="paper-venue"><span>
+              Knowledge and Information Systems
+          </span><span class="badge badge-journal">Journal</span></div>
+          <div class="paper-abstract">
+              The capability to devise robust outlier and anomaly detection
+                tools is an important research topic in machine learning and data mining.
+                Recent techniques have been focusing on reinforcing detection with sophisticated
+                data generation tools that successfully refine the learning process by generating
+                variants of the data that expand the recognition capabilities of the outlier detector.
+                In this paper, we propose ARN, a semi-supervised anomaly detection and generation method
+                based on adversarial counterfactual reconstruction.
+                ARN exploits a regularized autoencoder to optimize the reconstruction
+                of variants of normal examples with minimal differences that are recognized as outliers.
+                The combination of regularization and counterfactual reconstruction helps to stabilize
+                the learning process, which results in both realistic outlier generation and substantially
+                extended detection capability. In fact, the counterfactual generation enables a smart
+                exploration of the search space by successfully relating small changes in all the actual
+                samples from the true distribution to high anomaly scores.
+                Experiments on several benchmark datasets show that our model improves
+                the current state of the art by valuable margins because of its ability
+                to model the true boundaries of the data manifold.
 
-          <br>
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://link.springer.com/content/pdf/10.1007/s10115-024-02172-w.pdf" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-          Nunziato Cassavia,
+      <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/ares2024.jpg" alt="Syscalls"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://dl.acm.org/doi/10.1145/3664476.3670884">
+            No Country for Leaking Containers: Detecting Exfiltration of Secrets Through AI and Syscalls
+          </a></div>
+          <div class="paper-authors">
+              Marco Zuppelli,
+            Massimo Guarascio,
+            Luca Caviglione,
+            <strong>Angelica Liguori</strong>
+          </div>
+          <div class="paper-venue"><span>
+              ARES '24: Proceedings of the 19th International Conference on Availability, Reliability and Security
+          </span><span class="badge badge-conf">Conference</span></div>
+          <div class="paper-abstract">
+              Containers offer lightweight execution environments for implementing microservices
+                or cloud-native applications. Owing to their ubiquitous diffusion jointly with the complex interplay of hardware,
+                computing, and network resources, effectively enforcing container security is a difficult task.
+                Specifically, runtime detection of threats poses many challenges since container images are often immutable,
+                and many malware deploys obfuscation or elusive mechanisms. Therefore, in this work,
+                we propose a deep-learning-based approach for identifying the presence of two containers
+                colluding to covertly leak secret information. In more detail, we consider a threat actor
+                trying to exfiltrate a 4,096-bit private TLS key via five different covert channels.
+                To decide whether containers are colluding for leaking data, the deep learning model
+                is fed with statistical indicators of the syscalls, which are built starting from simple counters.
+                Results indicate the effectiveness of our approach, even if some adjustments are needed to reduce
+                the number of false positives.
+          </div>
+          <div class="paper-links"><a href="https://dl.acm.org/doi/epdf/10.1145/3664476.3670884" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
+
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/ds2024.jpg" alt="DS2024"></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-78980-9_25">
+                Beyond the Horizon: Using Mixture of Experts for Domain Agnostic Fake News Detection
+            </a></div>
+            <div class="paper-authors">
+                Carmela Comito,
+            Massimo Guarascio,
+            <strong>Angelica Liguori</strong>,
+            Giuseppe Manco,
+            Francesco Sergio Pisani
+            </div>
+            <div class="paper-venue"><span>
+                Discovery Science
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                In recent years, social media have become one of the main means
+                to quickly spread information worldwide, but this rapid dissemination also brings significant
+                risks of misinformation and fake news, which can cause widespread confusion, erode public trust,
+                and contribute to social and political instability. This scenario is further exacerbated by the fact
+                that fake news can span various topics across different domains, making it impracticable for a single
+                moderator to manage the massive quantity of data. The use of Machine Learning, particularly language
+                models, is rising as an effective solution to mitigate the risk of misinformation. However,
+                a single model cannot fully capture the complexity and variety of the information it needs to process,
+                often failing to classify examples from new domains. In this work, the aforementioned challenges
+                are addressed by leveraging a novel hierarchical deep-ensemble framework. This framework aims
+                to integrate various domains to offer enhanced predictions for new ones. Specifically, the approach
+                involves learning a distinct model for each domain and refining them through domain-specific
+                adaptation procedures. The predictions of these refined models are hence blended using a
+                Mixture of Experts approach, which allows for selecting the most reliable for predicting the new examples.
+                The proposed approach is fully cross-domain and does not necessitate retraining or fine-tuning when
+                encountering new domains, thus streamlining the adaptation process and ensuring scalability across diverse
+                data landscapes. Experiments conducted on 5 real datasets demonstrate the robustness and effectiveness
+                of our proposal.
+            </div>
+        <div class="read-more-btn">Read more</div>
+      <div class="paper-links">
+                <a href="../data/120%20-%20Angelica%20Liguori%20-%20Beyond%20the%20Horizon%20Using%20Mixture%20of%20Experts%20for%20Domain%20Agnostic%20Fake%20News%20Detection.pdf" class="link-btn">Slides</a>
+        </div>
+      </div>
+    </article>
+
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/lsb.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-62700-2_11">
+                Erasing the Shadow: Sanitization of Images with Malicious Payloads Using Deep Autoencoders
+            </a></div>
+            <div class="paper-authors">
+                <strong>Angelica Liguori</strong>,
+                Marco Zuppelli,
+                Daniela Gallo,
+                Massimo Guarascio,
+                Luca Caviglione
+
+            </div>
+            <div class="paper-venue"><span>
+                International Symposium on Methodologies for Intelligent Systems
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Steganography is used by threat actors to avoid detection or bypass blockages.
+                Among the various approaches, hiding data within digital images is now the preferred offensive technique.
+                Alas, developing attack-agnostic mitigation mechanisms is difficult, especially due to the tight
+                relation between the images and the steganographic approach. Therefore, this paper takes advantage
+                of autoencoders for sanitization, i.e., to disrupt the malicious information hidden in images without
+                altering the visual quality. To this aim, we used an enhanced U-Net-like neural architecture.
+                Results obtained with realistic threats showcased that our approach can effectively
+                disrupt cloaked data and prevent the recovery of the payload while preserving the original image quality.
+
+            </div>
+        <div class="read-more-btn">Read more</div>
+
+            <div class="paper-links">
+                <a href="../data/ISMIS2024-MC-Liguori.pdf" class="link-btn">Slides</a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/SNNPM.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-62700-2_18">
+                Siamese Networks for Unsupervised Failure Detection in Smart Industry
+
+            </a></div>
+            <div class="paper-authors">
+                <strong>Angelica Liguori</strong>,
+                Ettore Ritacco,
+                Giuseppe Benvenuto,
+                Salvatore Iiritano,
+                Giuseppe Manco,
+                Massimiliano Ruffolo
+            </div>
+            <div class="paper-venue"><span>
+                International Symposium on Methodologies for Intelligent Systems
+
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                In industrial production systems, detecting malfunctions or unexpected behavior in devices
+                early is crucial to avoid critical situations for both production plants and workers.
+                In this context, we propose an unsupervised anomaly detection model that analyzes streaming data
+                from IoT sensors installed on critical devices to identify abnormal behavior.
+                Our model is based on a Siamese neural network, which embeds time series windows into a latent space,
+                generating distance-based clusters representing normal behavior. We evaluate our model in a real case study
+                focused on the predictive maintenance of elevators, where sensors measure lift oscillations during daily use.
+                Experiments demonstrate that the model successfully isolates anomalous oscillations,
+                correlating them with potential malfunctions and preventing possible faults.
+
+            </div>
+        <div class="read-more-btn">Read more</div>
+
+            <div class="paper-links">
+                <a href="../data/ISMIS2024-IS-Liguori.pdf" class="link-btn">Slides</a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="paper-card">
+          <div class="paper-thumb"><div class="no-img"></div></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://ceur-ws.org/Vol-3762/513.pdf">
+                Dawn of LLM4Cyber: Current Solutions, Challenges, and New Perspectives in Harnessing LLMs for Cybersecurity
+            </a></div>
+            <div class="paper-authors">
+                Luca Caviglione,
+            Carmela Comito,
+            Erica Coppolillo,
+            Daniela Gallo,
+            Massimo Guarascio,
+            <strong>Angelica Liguori </strong>,
+            Giuseppe Manco,
+            Marco Minici,
+            Simone Mungari,
+            Francesco Sergio Pisani,
+            Ettore Ritacco,
+            Antonino Rullo,
+            Paolo Zicari,
+            Marco Zuppelli
+            </div>
+            <div class="paper-venue"><span>
+                Ital-IA 2024: 4th National Conference on Artificial Intelligence
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Large Language Models (LLMs) are now a relevant part of the
+                daily experience of many individuals. For instance, they can be used to generate text
+                or to support working duties, such as programming tasks. However, LLMs can also lead
+                to a multifaceted array of security issues. This paper discusses the research activity
+                on LLMs carried out by the ICAR-IMATI group. Specifically, within the framework of three
+                funded projects, it addresses our ideas on how to understand whether data has been generated
+                by a human or a machine, track the use of information ingested by models, combat misinformation
+                and disinformation, and boost cybersecurity via LLM-capable tools.
+            </div>
+        <div class="read-more-btn">Read more</div>
+
+            <div class="paper-links"><a href="https://ceur-ws.org/Vol-3762/513.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
+
+
+    </div>
+  </details>
+
+
+    <!-- ══════════ 2023 ══════════ -->
+  <details class="year-accordion">
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2023</span>
+        <div class="year-meta">
+          <span class="year-count">6 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/jiis.jpg" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/article/10.1007/s10844-023-00819-8">
+                Learning autoencoder ensembles for detecting malware hidden communications in IoT ecosystems
+
+            </a></div>
+            <div class="paper-authors">
+                Nunziato Cassavia,
           Luca Caviglione,
           Massimo Guarascio,
-          <strong>Angelica Liguori </strong>,
+          <strong>Angelica Liguori</strong>,
           Marco Zuppelli
+            </div>
+            <div class="paper-venue"><span>
+                Journal of Intelligent Information Systems
 
-          <br>
-          <em> Journal of Intelligent Information Systems </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> Modern IoT ecosystems are the preferred target of threat actors wanting to incorporate
+            </span><span class="badge badge-journal">Journal</span></div>
+            <div class="paper-abstract">
+                Modern IoT ecosystems are the preferred target of threat actors wanting to incorporate
             resource-constrained devices within a botnet or leak sensitive information. A major research effort is then devoted to
             create countermeasures for mitigating attacks, for instance, hardware-level verification mechanisms or effective
             network intrusion detection frameworks. Unfortunately, advanced malware is often endowed with the ability of
@@ -359,36 +1119,38 @@
             To conduct tests, this work considers IoT traffic traces gathered in a real setting and the presence of an attacker
             deploying two hiding schemes (i.e., naive and “elusive” approaches). Collected results showcase the effectiveness
             of our method as well as the feasibility of deploying autoencoders in production-quality IoT settings.
-          </p>
 
-        </td>
-      </tr>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/federated_learning.jpg" alt="hpp" style="border-style: none" width="200">
+            <div class="paper-links"><a href="https://link.springer.com/content/pdf/10.1007/s10844-023-00819-8.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
 
-        </td>
 
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://link.springer.com/article/10.1007/s13278-023-01121-9">
-            <papertitle>A federated approach for detecting data hidden in icons of mobile applications delivered via web and multiple stores</papertitle>
-            </a>
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/federated_learning.jpg" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/article/10.1007/s13278-023-01121-9">
+                A federated approach for detecting data hidden in icons of mobile applications delivered via web and multiple stores
 
-          <br>
-
-          Nunziato Cassavia,
+            </a></div>
+            <div class="paper-authors">
+                Nunziato Cassavia,
           Luca Caviglione,
           Massimo Guarascio,
-          <strong>Angelica Liguori </strong>,
+          <strong>Angelica Liguori</strong>,
            Giuseppe Manco,
           Marco Zuppelli
 
-          <br>
-          <em> Social Network Analysis and Mining </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> An increasing volume of malicious software exploits information hiding techniques
+
+            </div>
+            <div class="paper-venue"><span>
+                Social Network Analysis and Mining
+
+            </span><span class="badge badge-journal">Journal</span></div>
+            <div class="paper-abstract">
+                An increasing volume of malicious software exploits information hiding techniques
             to cloak additional attack stages or bypass frameworks enforcing security. This trend has intensified with
             the growing diffusion of mobile ecosystems, and many threat actors now conceal scripts or configuration data
             within high-resolution icons. Even if machine learning has proven to be effective in detecting various hidden payloads,
@@ -400,77 +1162,71 @@
             Results collected through simulations indicate that our approach achieves performances similar to those of
             centralized blueprints. Moreover, federated learning demonstrated its effectiveness in coping with simple “obfuscation”
             schemes like Base64 encoding and zip compression used by attackers to avoid detection.
-          </p>
 
-        </td>
-      </tr>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/covert_channels.png" alt="hpp" style="border-style: none" width="200">
+            <div class="paper-links"><a href="https://link.springer.com/content/pdf/10.1007/s13278-023-01121-9.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
 
-        </td>
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/covert_channels.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://ceur-ws.org/Vol-3486/37.pdf">
+                Using AI to face covert attacks in IoT and softwarized scenarios: challenges and opportunities
+            </a></div>
+            <div class="paper-authors">
+                <strong>Angelica Liguori</strong>,
+              Simone Mungari,
+              Marco Zuppelli,
+              Carmela Comito,
+              Enrico Cambiaso,
+              Matteo Repetto,
+              Massimo Guarascio,
+              Luca Caviglione,
+              Giuseppe Manco
+            </div>
+            <div class="paper-venue"><span>
+                Ital-IA 2023: 3rd National Conference on Artificial Intelligence
 
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://ceur-ws.org/Vol-3486/37.pdf">
-            <papertitle>Using AI to face covert attacks in IoT and softwarized scenarios: challenges and opportunities</papertitle>
-            </a>
-
-          <br>
-
-          <strong>Angelica Liguori </strong>,
-          Simone Mungari,
-          Marco Zuppelli,
-          Carmela Comito,
-          Enrico Cambiaso,
-          Matteo Repetto,
-          Massimo Guarascio,
-          Luca Caviglione,
-          Giuseppe Manco
-
-          <br>
-          <em> Ital-IA 2023: 3rd National Conference on Artificial Intelligence </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> Recently, the number of attacks aiming at breaching networked and softwarized environments has been growing exponentially.
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Recently, the number of attacks aiming at breaching networked and softwarized environments has been growing exponentially.
             In particular, information hiding methods and covert attacks have been proven to be able to elude traditional
             detection systems and exfiltrate sensitive data without producing visible network flows or data exchanges.
             In this context, Artificial Intelligence techniques can play a key role in detecting these new emerging attacks,
             owing to their capability of quickly processing huge amounts of data without the necessity of expert intervention.
             In this work, we discuss the main challenges to face covert attacks in IoT and softwarized environments and
             we describe some preliminary results obtained by adopting Deep Learning architectures.
-          </p>
-          [<a href="https://ceur-ws.org/Vol-3486/37.pdf"> Paper </a>]
 
-        </td>
-      </tr>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-        <td style="padding:20px;width:25%;vertical-align:middle">
-          <img src="../images/crossdomain.png" alt="hpp" style="border-style: none" width="200">
+            <div class="paper-links"><a href="https://ceur-ws.org/Vol-3486/37.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
 
-        </td>
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/crossdomain.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://ceur-ws.org/Vol-3488/paper12.pdf">
+                Towards Self-Supervised Cross-Domain Fake News Detection
+            </a></div>
+            <div class="paper-authors">
+                Carmela Comito,
+              Francesco Sergio Pisani,
+              Erica Coppolillo,
+              <strong>Angelica Liguori</strong>,
+              Massimo Guarascio,
+              Giuseppe Manco
 
-        <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href= "https://ceur-ws.org/Vol-3488/paper12.pdf">
-            <papertitle>Towards Self-Supervised Cross-Domain Fake News Detection</papertitle>
-            </a>
-
-          <br>
-
-          Carmela Comito,
-          Francesco Sergio Pisani,
-          Erica Coppolillo,
-          <strong>Angelica Liguori </strong>,
-          Massimo Guarascio,
-          Giuseppe Manco
-
-
-          <br>
-          <em> ITASEC 2023: The Italian Conference on CyberSecurity </em>
-          <br>
-          <br>
-          <p style="text-align: justify;"> Twitter, Facebook, and Instagram are just some examples of social media currently used by people to share news with other users worldwide.
+            </div>
+            <div class="paper-venue"><span>
+                ITASEC 2023: The Italian Conference on CyberSecurity
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Twitter, Facebook, and Instagram are just some examples of social media currently used by people to share news with other users worldwide.
             However, the information widespread through these channels is typically unverified and/or interpreted according to the user’s point of view.
             Accordingly, those means represent the perfect tool to hack user opinions with misleading or false news and make fake news viral.
             Identifying this malicious information is a crucial but challenging task since fake news can concern different topics.
@@ -478,64 +1234,59 @@
             In this work, we propose a novel deep learning-based architecture able to mitigate this problem by yielding cross-domain high-level features for addressing this task.
             Preliminary experimentation conducted on two benchmarks demonstrated the validity of the proposed solution.
 
-          </p>
-          [<a href="https://ceur-ws.org/Vol-3488/paper12.pdf"> Paper </a>]
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-        </td>
-      </tr>
+            <div class="paper-links"><a href="https://ceur-ws.org/Vol-3488/paper12.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/fakeitem.jpg" alt="hpp" style="border-style: none" width="200">
-
-          </td>
-
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://ceur-ws.org/Vol-3478/paper57.pdf">
-              <papertitle>Siamese Network for Fake Item Detection</papertitle>
-              </a>
-
-            <br>
-
-            Erica Coppolillo,
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/fakeitem.jpg" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://ceur-ws.org/Vol-3478/paper57.pdf">
+                Siamese Network for Fake Item Detection
+            </a></div>
+            <div class="paper-authors">
+                Erica Coppolillo,
             Daniela Gallo,
             <strong>Angelica Liguori </strong>,
             Simone Mungari,
             Ettore Ritacco,
             Giuseppe Manco
 
-            <br>
-            <em> SEBD 2023: 31st Symposium on Advanced Database System </em>
-            <br>
-            <br>
-            <p style="text-align: justify;"> Currently, most multimedia users choose to purchase items through e-commerce.
-              Nevertheless, one of the main concerns of online shopping is the possibility of obtaining counterfeit products.
-              Therefore, it is crucial to monitor the authenticity of the product, thus adopting an automatic mechanism
-              to validate the similarity between the purchased item and the delivered one.
-              To overcome this issue, we propose a Siamese Network model for detecting forged items.
-              Preliminary experimentation on a publicly available dataset proves the effectiveness of our solution.
-            </p>
-            [
-            <a href="https://ceur-ws.org/Vol-3478/paper57.pdf">Paper</a>, <a href="../data/01-Angelica%20Liguori%20Siamese%20Network%20for%20Fake%20Item%20Detection.pdf">Slides</a>
-            ]
-          </td>
-        </tr>
+            </div>
+            <div class="paper-venue"><span>
+                SEBD 2023: 31st Symposium on Advanced Database System
+
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Currently, most multimedia users choose to purchase items through e-commerce.
+                Nevertheless, one of the main concerns of online shopping is the possibility of obtaining counterfeit products.
+                Therefore, it is crucial to monitor the authenticity of the product, thus adopting an automatic mechanism
+                to validate the similarity between the purchased item and the delivered one.
+                To overcome this issue, we propose a Siamese Network model for detecting forged items.
+                Preliminary experimentation on a publicly available dataset proves the effectiveness of our solution.
+            </div>
+        <div class="read-more-btn">Read more</div>
+
+            <div class="paper-links">
+                <a href="https://ceur-ws.org/Vol-3478/paper57.pdf" class="link-btn primary">Paper</a>
+                <a href="../data/01-Angelica%20Liguori%20Siamese%20Network%20for%20Fake%20Item%20Detection.pdf" class="link-btn">Slides</a>
+
+            </div>
+          </div>
+        </article>
 
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/Neuro_Symbolic.jpg" alt="hpp" style="border-style: none" width="200">
-
-          </td>
-
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://ceur-ws.org/Vol-3478/paper78.pdf">
-              <papertitle>Neuro-Symbolic techniques for Predictive Maintenance</papertitle>
-              </a>
-
-            <br>
-
-            <strong>Angelica Liguori </strong>,
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/Neuro_Symbolic.jpg" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://ceur-ws.org/Vol-3478/paper78.pdf">
+                Neuro-Symbolic techniques for Predictive Maintenance
+            </a></div>
+            <div class="paper-authors">
+                <strong>Angelica Liguori</strong>,
             Simone Mungari,
             Ettore Ritacco,
             Francesco Ricca,
@@ -543,367 +1294,335 @@
             Salvatore Iiritano
 
 
-            <br>
-            <em> SEBD 2023: 31st Symposium on Advanced Database System </em>
-            <br>
-            <br>
-            <p style="text-align: justify;"> Predictive maintenance plays a key role in the core business of the industry due to its potential in reducing unexpected machine downtime and related cost.
+            </div>
+            <div class="paper-venue"><span>
+                SEBD 2023: 31st Symposium on Advanced Database System
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Predictive maintenance plays a key role in the core business of the industry due to its potential in reducing unexpected machine downtime and related cost.
             To avoid such issues, it is crucial to devise artificial intelligence models that can effectively predict failures.
             Predictive maintenance current approaches have several limitations that can be overcome by exploiting hybrid approaches such as Neuro-Symbolic techniques.
             Neuro-symbolic models combine neural methods with symbolic ones leading to improvements in efficiency, robustness, and explainability.
             In this work, we propose to exploit hybrid approaches by investigating their advantage over classic predictive maintenance approaches.
-            </p>
-            [
-            <a href="https://ceur-ws.org/Vol-3478/paper78.pdf">Paper</a>, <a href="../data/SEBD_poster_paper78.pdf">Poster</a>
-            ]
-          </td>
-        </tr>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/mtpp.png" alt="hpp" style="border-style: none" width="200">
-
-          </td>
-
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://arxiv.org/abs/2303.06067">
-              <papertitle>Modeling Events and Interactions through Temporal Processes -- A Survey</papertitle>
-              </a>
-
-            <br>
-            <strong>Angelica Liguori </strong>,
-            Luciano Caroprese,
-            Marco Minici,
-            Bruno Veloso,
-            Francesco Spinnato,
-            Mirco Nanni,
-            Giuseppe Manco,
-            Joao Gama
-
-            <br>
-            <em> arXiv </em>
-            <br>
-            <p style="text-align: justify;"> In real-world scenario, many phenomena produce a collection of events that occur in continuous time.
-              Point Processes provide a natural mathematical framework for modeling these sequences of events. In this survey, we investigate probabilistic models
-              for modeling event sequences through temporal processes. We revise the notion of event modeling and provide the mathematical foundations that characterize
-              the literature on the topic. We define an ontology to categorize the existing approaches in terms of three families: simple, marked,
-              and spatio-temporal point processes. For each family, we systematically review the existing approaches based based on deep learning.
-              Finally, we analyze the scenarios where the proposed techniques can be used for addressing prediction and modeling aspects.
-
-            </p>
-
-          </td>
-        </tr>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2022</heading>
-
-            </td>
-          </tr>
-        </tbody></table>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <div class="paper-links">
+                <a href="https://ceur-ws.org/Vol-3478/paper78.pdf" class="link-btn primary">Paper</a>
+                <a href="../data/SEBD_poster_paper78.pdf" class="link-btn">Poster</a>
+            </div>
+          </div>
+        </article>
 
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/chapter.png" alt="hpp" style="border-style: none" width="200">
+    </div>
+  </details>
 
-          </td>
 
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://link.springer.com/chapter/10.1007/978-3-031-36096-1_5">
-              <papertitle>Generative Methods for Out-of-distribution Prediction and Applications for Threat Detection and Analysis: A Short Review</papertitle>
-              </a>
+    <!-- ══════════ 2022 ══════════ -->
+  <details class="year-accordion">
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2022</span>
+        <div class="year-meta">
+          <span class="year-count">3 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
 
-            <br>
-            Erica Coppolillo,
-            <strong>Angelica Liguori </strong>,
+        <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/chapter.png" alt="Generative Methods Chapter"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-36096-1_5">
+              Generative Methods for Out-of-distribution Prediction and Applications for Threat Detection and Analysis: A Short Review</a></div>
+          <div class="paper-authors">
+              Erica Coppolillo,
+            <strong>Angelica Liguori</strong>,
             Massimo Guarascio,
             Francesco Sergio Pisani,
             Giuseppe Manco
-
-            <br>
-            <em> Digital Sovereignty in Cyber Security: New Challenges in Future Vision </em>
-            <br>
-            <em> Part of the Communications in Computer and Information Science book series (CCIS,volume 1807) </em>
-            <br>
-            <br>
-            <p style="text-align: justify;"> In recent times, Machine Learning has played an important role in developing novel advanced tools for threat detection and mitigation.
+          </div>
+          <div class="paper-venue"><span>
+              Digital Sovereignty in Cyber Security: New Challenges in Future Vision - Part of the Communications in Computer and Information Science book series (CCIS,volume 1807)
+          </span><span class="badge badge-conf">Book Chapter</span></div>
+          <div class="paper-abstract">
+          In recent times, Machine Learning has played an important role in developing novel advanced tools for threat detection and mitigation.
               Intrusion Detection, Misinformation, Malware, and Fraud Detection are just some examples of cybersecurity fields in which Machine Learning techniques are used to reveal the presence of malicious behaviors.
               However, Out-of-Distribution, i.e., the potential distribution gap between training and test set, can heavily affect the performances of the traditional Machine Learning based methods.
               Indeed, they could fail in identifying out-of-samples as possible threats, therefore devising robust approaches to cope with this issue is a crucial and relevant challenge to mitigate the risk of undetected attacks.
               Moreover, a recent emerging line proposes to use generative models to yield synthetic likely examples to feed the learning algorithms.
               In this work, we first survey recent Machine Learning and Deep Learning based solutions to face both the problems, i.e., outlier detection and generation;
               then we illustrate the main cybersecurity application scenarios in which these approaches have been adopted successfully.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://link.springer.com/chapter/10.1007/978-3-031-36096-1_5" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-            </p>
-
-          </td>
-        </tr>
-
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/eaipersom2022.png" alt="hpp" style="border-style: none" width="200">
-
-          </td>
-
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://link.springer.com/chapter/10.1007/978-3-031-31469-8_6">
-              <papertitle>Federated Learning for the Efficient Detection of Steganographic Threats Hidden in Image Icons</papertitle>
-              </a>
-
-            <br>
-            Nunziato Cassavia,
+        <article class="paper-card">
+        <div class="paper-thumb"><img src="../images/eaipersom2022.png" alt="Federated Steganographic Threats"></div>
+        <div class="paper-body">
+          <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-31469-8_6">
+              Federated Learning for the Efficient Detection of Steganographic Threats Hidden in Image Icons
+          </a></div>
+          <div class="paper-authors">
+              Nunziato Cassavia,
             Luca Caviglione,
             Massimo Guarascio,
-            <strong>Angelica Liguori </strong>,
+            <strong>Angelica Liguori</strong>,
             Giuseppe Surace,
             Marco Zuppelli
-
-            <br>
-            <em> EAI PerSoM 2022 - EAI International Conference on Pervasive knowledge and collective intelligence on Web and Social Media </em>
-            <br>
-            <em> <strong> Best Paper Award! </strong></em>
-
-            <br>
-            <p style="text-align: justify;"> An increasing number of threat actors takes advantage of information hiding techniques to prevent detection or
+          </div>
+          <div class="paper-venue">
+            <span>EAI PerSoM 2022 - EAI International Conference on Pervasive knowledge and collective intelligence on Web and Social Media</span>
+            <span class="badge badge-conf">Conference</span>
+            <span class="badge badge-award">🏆 Best Paper Award</span>
+          </div>
+          <div class="paper-abstract">
+              An increasing number of threat actors takes advantage of information hiding techniques to prevent detection or
               to drop payloads containing attack routines. With the ubiquitous diffusion of mobile appli- cations, high-resolution icons should be considered
               a very attractive carrier for cloaking malicious information via steganographic mechanisms.
               Despite machine learning approaches proven to be effective to detect hidden payloads, the mobile scenario could challenge their deployment
               in realistic use cases, for instance due to scalability constraints. Therefore, this paper introduces an approach based on federated learning
               able to prevent hazards characterizing production-quality scenarios, including different privacy regulations and lack of comprehensive datasets.
               Numerical results indicate that our approach achieves performances similar to those of centralized solutions.
+          </div>
+            <div class="read-more-btn">Read more</div>
+          <div class="paper-links"><a href="https://link.springer.com/chapter/10.1007/978-3-031-31469-8_6" class="link-btn primary">Paper</a></div>
+        </div>
+      </article>
 
-            </p>
-
-          </td>
-        </tr>
-
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/ismis2022.png" alt="hpp" style="border-style: none" width="200">
-
-          </td>
-
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://link.springer.com/chapter/10.1007/978-3-031-16564-1_20">
-              <papertitle>Ensembling Sparse Autoencoders for Network Covert Channel Detection in IoT Ecosystems</papertitle>
-              </a>
-
-            <br>
-            Nunziato Cassavia,
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/ismis2022.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-16564-1_20">
+                Ensembling Sparse Autoencoders for Network Covert Channel Detection in IoT Ecosystems
+            </a></div>
+            <div class="paper-authors">
+                Nunziato Cassavia,
             Luca Caviglione,
             Massimo Guarascio,
-            <strong>Angelica Liguori </strong>,
+            <strong>Angelica Liguori</strong>,
             Marco Zuppelli
-
-            <br>
-            <em> International Symposium on Methodologies for Intelligent Systems, ISMIS 2022 </em>
-            <br>
-            <em> Foundations of Intelligent Systems </em>
-            <br>
-            <em> Part of the Lecture Notes in Computer Science book series (LNAI,volume 13515) </em>
-            <br>
-            <br>
-            <p style="text-align: justify;"> Network covert channels are becoming exploited by a wide-range of threats to avoid detection.
+            </div>
+            <div class="paper-venue"><span>
+                International Symposium on Methodologies for Intelligent Systems
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                Network covert channels are becoming exploited by a wide-range of threats to avoid detection.
               Such offensive schemes are expected to be also used against IoT deployments, for instance to exfiltrate data or to covertly orchestrate botnets composed of simple devices.
               Therefore, we illustrate a solution based on Deep Learning for the detection of covert channels targeting the TTL field of IPv4 datagrams.
               To this aim, we take advantage of an Autoencoder ensemble to reveal anomalous traffic behaviors.
               An experimentation on realistic traffic traces demonstrates the effectiveness of our approach.
-
-            </p>
-
-          </td>
-        </tr>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2021</heading>
-
-            </td>
-          </tr>
-        </tbody></table>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            </div>
+        <div class="read-more-btn">Read more</div>
+          </div>
+        </article>
 
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/arn.png" alt="hpp" style="border-style: none" width="200">
 
-          </td>
+    </div>
+  </details>
 
-          <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href= "https://ieeexplore.ieee.org/document/9679163">
-              <papertitle>Adversarial Regularized Reconstruction for Anomaly Detection and Generation</papertitle>
-              </a>
 
-            <br>
-            <strong>Angelica Liguori </strong>,
+    <!-- ══════════ 2021 ══════════ -->
+  <details class="year-accordion">
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2021</span>
+        <div class="year-meta">
+          <span class="year-count">2 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/arn.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://ieeexplore.ieee.org/document/9679163">
+                Adversarial Regularized Reconstruction for Anomaly Detection and Generation
+            </a></div>
+            <div class="paper-authors">
+                <strong>Angelica Liguori</strong>,
             Giuseppe Manco,
             Francesco Sergio Pisani,
             Ettore Ritacco
-
-            <br>
-            <em> 2021 IEEE International Conference on Data Mining (ICDM)</em>
-            <br>
-            <br>
-            <br>
-            <p style="text-align: justify;"> We propose ARN, a semisupervised anomaly detection and generation method based on adversarial reconstruction.
+            </div>
+            <div class="paper-venue"><span>
+                2021 IEEE International Conference on Data Mining
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                We propose ARN, a semisupervised anomaly detection and generation method based on adversarial reconstruction.
              ARN exploits a regularized autoencoder to optimize the reconstruction of variants of normal examples with minimal differences,
              that are recognized as outliers. The combination of regularization and adversarial reconstruction helps to stabilize the learning process,
              which results in both realistic outlier generation and substantial detection capability.
              Experiments on several benchmark datasets show that our model improves the current state-of-the-art by valuable margins
              because of its ability to model the true boundaries of the data manifold.
 
+            </div>
+        <div class="read-more-btn">Read more</div>
+              <a href="https://ieeexplore.ieee.org/document/9679163" class="link-btn primary">Paper</a>
+            <a href="../data/ICDM2021-DM878_c.pdf" class="link-btn">Slides</a>
+          </div>
+        </article>
 
-            </p>
-            [
-            <a href="../data/ICDM2021-DM878_c.pdf">Slides</a>
-              ]
-
-          </td>
-        </tr>
-
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/SEBD2021.png" alt="hpp" style="border-style: none" width="200">
-          </td>
-          <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href="http://ceur-ws.org/Vol-2994/paper54.pdf">
-              <papertitle>A Deep Learning Approach for Unsupervised Failure Detection in Smart Industry
-                (Discussion Paper)</papertitle>
-            </a>
-            <br>
-            <strong>Angelica Liguori </strong>,
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/SEBD2021.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="http://ceur-ws.org/Vol-2994/paper54.pdf">
+                A Deep Learning Approach for Unsupervised Failure Detection in Smart Industry (Discussion Paper)
+            </a></div>
+            <div class="paper-authors">
+                 <strong>Angelica Liguori</strong>,
             Giuseppe Manco,
             Ettore Ritacco,
             Massimilano Ruffolo,
             Salvatore Iiritano
 
-            <br>
-            <em>SEBD 2021: The 29th Italian Symposium on Advanced Database Systems</em>
-            <br>
-            <br>
-            <p style="text-align: justify;">We propose an unsupervised anomaly detection model that is able to identify abnormal behavior
+
+            </div>
+            <div class="paper-venue"><span>
+                SEBD 2021: The 29th Italian Symposium on Advanced Database Systems
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                We propose an unsupervised anomaly detection model that is able to identify abnormal behavior
               by analysing streaming data coming from IoT sensors installed on critical devices.
               The proposed model is based on a Siamese neural network which embeds time series windows
-              in a latent space, thus generating distance-based clusters of normal behavior</p>
-            [
-            <a href="http://ceur-ws.org/Vol-2994/paper54.pdf">Paper</a>
-            ]
-          </td>
-        </tr>
+              in a latent space, thus generating distance-based clusters of normal behavior
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>2020</heading>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-            </td>
-          </tr>
-        </tbody></table>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <div class="paper-links"><a href="http://ceur-ws.org/Vol-2994/paper54.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
 
 
-        <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="../images/TCAPP.png" alt="hpp" style="border-style: none" width="200">
-          </td>
-          <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href="https://link.springer.com/chapter/10.1007/978-3-030-65965-3_17">
-              <papertitle>Exploiting Temporal Convolution for Activity Prediction in Process Analytics</papertitle>
-            </a>
-            <br>
-            Francesco Folino,
+    </div>
+  </details>
+
+
+    <!-- ══════════ 2020 ══════════ -->
+  <details class="year-accordion">
+    <summary class="year-summary">
+      <div class="year-left">
+        <span class="year-number">2020</span>
+        <div class="year-meta">
+          <span class="year-count">3 publications</span>
+        </div>
+      </div>
+      <span class="year-arrow"><i class="icon-chevron-down"></i></span>
+    </summary>
+    <div class="papers-list">
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/TCAPP.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007/978-3-030-65965-3_17">
+                Exploiting Temporal Convolution for Activity Prediction in Process Analytics
+            </a></div>
+            <div class="paper-authors">
+                Francesco Folino,
             Massimo Guarascio,
             <strong>Angelica Liguori </strong>,
             Giuseppe Manco,
             Luigi Pontieri,
             Ettore Ritacco
-
-            <br>
-            <em>ECML PKDD: Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 2020</em>
-            <br>
-            <em>Part of the Communications in Computer and Information Science book series (CCIS, volume 1323),
-              Springer International Publishing</em>
-            <br>
-            <p style="text-align: justify;">We  propose a novel convolution-based deep learning approach to the prediction of the next activity
+            </div>
+            <div class="paper-venue"><span>
+                ECML PKDD: Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 2020
+                - Part of the Communications in Computer and Information Science book series (CCIS, volume 1323),
+              Springer International Publishing
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                We  propose a novel convolution-based deep learning approach to the prediction of the next activity
               which relies on: (i) extracting high-level features (at dif- ferent levels of abstraction) through the computation
               of time-oriented dilated convolutions over traces, and (ii) exploiting residual-like con- nections to make
-              the training of the predictive model more robust and faster.</p>
-            [
-            <a href="https://link.springer.com/chapter/10.1007/978-3-030-65965-3_17">Paper</a> ]
-          </td>
-        </tr>
+              the training of the predictive model more robust and faster.
 
-          <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="../images/SEED.png" alt="hpp" style="border-style: none" width="200">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://link.springer.com/chapter/10.1007%2F978-3-030-59491-6_43">
-                <papertitle>Deep Autoencoder Ensembles for Anomaly Detection on Blockchain</papertitle>
-              </a>
-              <br>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-              Francesco Scicchitano,
-              <strong>Angelica Liguori </strong>,
+            <div class="paper-links"><a href="https://link.springer.com/chapter/10.1007/978-3-030-65965-3_17" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
+
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/SEED.png" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="https://link.springer.com/chapter/10.1007%2F978-3-030-59491-6_43">
+                Deep Autoencoder Ensembles for Anomaly Detection on Blockchain
+            </a></div>
+            <div class="paper-authors">
+                Francesco Scicchitano,
+              <strong>Angelica Liguori</strong>,
               Massimo Guarascio,
               Ettore Ritacco,
               Giuseppe Manco
-              <br>
-              <em>25th International Symposium on Methodologies for Intelligent Systems, ISMIS 2020</em>
-              <br>
-              <em>Foundations of Intelligent Systems</em>
-              <br>
-              <em> Part of the Lecture Notes in Computer Science book series (LNCS, volume 12117),
-                Springer International Publishing</em>
-              <br>
-              <p style="text-align: justify;">We propose an Ensemble Deep Learning approach to detect deviant behaviors on Blockchain
+            </div>
+            <div class="paper-venue"><span>
+                25th International Symposium on Methodologies for Intelligent Systems
+
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                We propose an Ensemble Deep Learning approach to detect deviant behaviors on Blockchain
                 where the base learner, an encoder-decoder model,
                 is strengthened by iteratively learning and aggregating multiple instances,
-                to compute an outlier score for each observation.</p>
-              [
-              <a href="https://link.springer.com/chapter/10.1007%2F978-3-030-59491-6_43">Paper</a>,
-              <a href="../data/ISMIS2020.pdf">Slides</a>
-              ]
-            </td>
-          </tr>
+                to compute an outlier score for each observation.
 
-          <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="../images/encoder-decoder.jpg" alt="hpp" style="border-style: none" width="200">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="http://ceur-ws.org/Vol-2597/paper-19.pdf">
-                <papertitle>A Deep Learning Approach for Detecting Security Attacks on Blockchain</papertitle>
-              </a>
-              <br>
+            </div>
+        <div class="read-more-btn">Read more</div>
 
-              Francesco Scicchitano,
-              <strong>Angelica Liguori </strong>,
+            <div class="paper-links">
+                <a href="https://link.springer.com/chapter/10.1007%2F978-3-030-59491-6_43" class="link-btn primary">Paper</a>
+                <a href="../data/ISMIS2020.pdf" class="link-btn">Slides</a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="paper-card">
+          <div class="paper-thumb"><img src="../images/encoder-decoder.jpg" alt=""></div>
+          <div class="paper-body">
+            <div class="paper-title"><a href="http://ceur-ws.org/Vol-2597/paper-19.pdf">
+                A Deep Learning Approach for Detecting Security Attacks on Blockchain
+
+            </a></div>
+            <div class="paper-authors">
+                Francesco Scicchitano,
+              <strong>Angelica Liguori</strong>,
               Massimo Guarascio,
               Ettore Ritacco,
               Giuseppe Manco
-              <br>
-              <em>Italian Conference on CyberSecurity, ITASEC 2020</em>
-              <br>
-              <br>
-              <p style="text-align: justify;">We define an anomaly detection system based on a encoder-decoder deep learning model, that is trained exploiting aggregate information extracted by monitoring blockchain activities.</p>
-              [
-              <a href="http://ceur-ws.org/Vol-2597/paper-19.pdf">Paper</a> ]
-            </td>
-          </tr>
 
-        </tbody></table>
+            </div>
+            <div class="paper-venue"><span>
+                Italian Conference on CyberSecurity
 
-        </tbody></table>
+            </span><span class="badge badge-conf">Conference</span></div>
+            <div class="paper-abstract">
+                We define an anomaly detection system based on a encoder-decoder deep learning model,
+                that is trained exploiting aggregate information extracted by monitoring blockchain activities.
+            </div>
+        <div class="read-more-btn">Read more</div>
+
+            <div class="paper-links"><a href="http://ceur-ws.org/Vol-2597/paper-19.pdf" class="link-btn primary">Paper</a></div>
+          </div>
+        </article>
+
+
+    </div>
+  </details>
+
+
+</div><!-- /accordion-wrap -->
+
+
 
         <body>
           <header>
@@ -937,6 +1656,16 @@
     </p>
 
   </div>
+
+            <script>
+document.querySelectorAll('.read-more-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const abstract = btn.previousElementSibling;
+    abstract.classList.toggle('expanded');
+    btn.textContent = abstract.classList.contains('expanded') ? 'Read less' : 'Read more';
+  });
+});
+</script>
 
 </body>
 
